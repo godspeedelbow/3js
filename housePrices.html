@@ -75,11 +75,12 @@
     var texture = THREE.ImageUtils.loadTexture('img/sweden-90.jpg');
 
     var material = new THREE.MeshPhongMaterial({
-        // ambient: 0x808080,
+        wireframe: true,
+        ambient: 0x808080,
         map: texture,
-        // specular: 0xFFFFFF,
-        // shininess: 30,
-        // shading: THREE.FlatShading,
+        specular: 0xFFFFFF,
+        shininess: 30,
+        shading: THREE.FlatShading,
     });
 
     var plane = new THREE.Mesh(geometry, material);
