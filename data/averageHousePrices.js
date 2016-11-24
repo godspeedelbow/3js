@@ -1,8 +1,7 @@
 'use strict';
 
 const data = getData();
-console.log('***** data', data);
-
+console.log('***** data.length', data.length);
 const minLng = 11;
 const maxLng = 24;
 
@@ -14,37 +13,116 @@ const lats = [55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68]; // 14 cel
 
 const result = [];
 
-let d = getDataPoint();
+let d = getDataRow();
 
 for (let lng of lngs) {
   for (let lat of lats) {
-    console.log(`${lng}=${d.lng}? ${lat}=${d.lat}? ${d.lng === lng && d.lat === lat}`);
-    if (d.lng === lng && d.lat === lat) {
-      console.log(`${lng}-${lat} √`);
-      result.push(d.averagePrice);
-      d = getDataPoint();
+    if (!d) {
+      console.log('no more data rows');
     } else {
-      console.log(`${lng}-${lat}`);
-      result.push(0);
+      // console.log(`${lng}=${d.lng}? ${lat}=${d.lat}? ${d.lng === lng && d.lat === lat}`);
+      if (d.lng === lng && d.lat === lat) {
+        // console.log(`${lng}-${lat} √`);
+        result.push(get3DPoint(d));
+        d = getDataRow();
+      } else {
+        // console.log(`${lng}-${lat}`);
+        result.push(get3DPoint({
+          lng: lng,
+          lat: lat,
+        }));
+      }      
     }
   }
 }
 
-console.log('***** result', result);
+console.log('***** result.length', result.length);
+
+const min = {
+  x: result[0].x,
+  y: result[0].y,
+  z: result[0].z,
+};
+const max = {
+  x: result[0].x,
+  y: result[0].y,
+  z: result[0].z,
+};
+
+for (let d of result) {
+  min.x = d.x < min.x ? d.x : min.x;
+  min.y = d.y < min.y ? d.y : min.y;
+  min.z = d.z < min.z ? d.z : min.z;
+  max.x = d.x > max.x ? d.x : max.x;
+  max.y = d.y > max.y ? d.y : max.y;
+  max.z = d.z > max.z ? d.z : max.z;
+}
+console.log('***** min', min);
+console.log('***** max', max);
+
+result.map(function(d) {
+  console.log('***** old', d);
+  d.x -= min.x;
+  d.y -= min.y;
+  console.log('***** new', d);
+  return d;
+});
+
+// throw Error()
 window.housePriceData = result;
 
-function getDataPoint() {
+function getDataRow() {
   const d = data.shift();
-  if (!d) return {};
-  const bla = {
+  if (!d) return;
+  return {
     lng: d.geo[0],
     lat: d.geo[1],
-    averagePrice: d.averagePrice,
+    averagePrice: Math.floor(d.averagePrice / 100 / 1000 * 3),
   };
-
-  return bla;
 }
 
+function get3DPoint(dataPoint) {
+  const point = getMercatorPoint([dataPoint.lng, dataPoint.lat]);
+  return {
+    lng: dataPoint.lng,
+    lat: dataPoint.lat,
+    x: point.x,
+    y: point.y,
+    z: dataPoint.averagePrice || 0,
+  };
+}
+
+
+
+function getMercatorPoint(geolocation) {
+  var dot_size = 3;
+  var longitude_shift = 55;   // number of pixels your map's prime meridian is off-center.
+  var map_width = 10000;
+  var map_height = 20000;
+  var x_pos = 0;
+  var y_pos = 0;
+  var half_dot = Math.floor(dot_size / 2);
+  let lng = geolocation[0];
+  let lat = geolocation[1];
+  let x, y;
+  // Mercator projection
+
+  // longitude: just scale and shift
+  x = (map_width * (180 + lng) / 360) % map_width + longitude_shift;
+
+  // latitude: using the Mercator projection
+  lat = lat * Math.PI / 180;  // convert from degrees to radians
+  y = Math.log(Math.tan((lat/2) + (Math.PI/4)));  // do the Mercator projection (w/ equator of 2pi units)
+  y = (map_height / 2) - (map_width * y / (2 * Math.PI)) + y_pos;   // fit it to our map
+
+  x -= x_pos;
+  y -= y_pos;
+
+  return {
+    x: Math.floor(x),
+    y: Math.floor(y),
+  };
+}
 
 function getData () {
   return [
