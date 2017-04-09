@@ -1,0 +1,22 @@
+{
+  "name": "3js",
+  "version": "1.0.0",
+  "description": "Three.js ==============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godspeedelbow/3js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godspeedelbow/3js/issues"
+  },
+  "homepage": "https://github.com/godspeedelbow/3js#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
