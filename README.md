@@ -3,6 +3,15 @@ Three.js
 
 Just playing around with Three.js.
 
+[Swedish house price visualisation](/housePrices.html)
+
+Development
+--------------
+
+- `npm i`
+- `npm run start`
+- visit `http://localhost:3000/housePrices.html`
+
 Resources
 --------------
 
