@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>three.js - Jotunheimen</title>
+<title>House prices of Sweden</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <style>
@@ -12,9 +12,9 @@
 </head>
 <body>
 <script src="js/three.js"></script>
-<script src="js/TrackballControls.js"></script> 
-<script src="js/Stats.js"></script> 
-<script src="data/averageHousePrices.js"></script> 
+<script src="js/TrackballControls.js"></script>
+<script src="js/Stats.js"></script>
+<script src="data/averageHousePrices.js"></script>
 <script>
 
     var width  = window.innerWidth,
@@ -52,7 +52,7 @@
     });
 
     // var material = new THREE.MeshBasicMaterial({
-    //     color: 0xaaaaaa, 
+    //     color: 0xaaaaaa,
     //     wireframe: true
     // });
 
@@ -60,11 +60,11 @@
     //     vertexColors: THREE.VertexColors,
     //     wireframe: true,
     // });
-    
-    // var material = new THREE.MeshBasicMaterial( 
+
+    // var material = new THREE.MeshBasicMaterial(
     // { color: 0xffffff, vertexColors: THREE.VertexColors } );
-    
-    // for ( var i = 0; i < geometry.faces.length; i++ ) 
+
+    // for ( var i = 0; i < geometry.faces.length; i++ )
     // {
     //     geometry.faces[i].color.setRGB( Math.random(), Math.random(), Math.random() );
     // }
@@ -88,7 +88,7 @@
     var light = new THREE.AmbientLight(0xffffff);
     scene.add(light);
 
-    var controls = new THREE.TrackballControls(camera); 
+    var controls = new THREE.TrackballControls(camera);
 
     document.body.appendChild( renderer.domElement );
 
