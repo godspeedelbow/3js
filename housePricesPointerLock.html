@@ -11,8 +11,7 @@
 <div id="blocker">
 
     <div id="instructions">
-        <span style="font-size: 1.7em;font-weight:bold;display:inline-block">Click to start</span><br />
-        <span style="font-size: 1.5em;font-weight:bold;display:inline-block">Scroll around until Sweden comes into view</span>
+        <span style="font-size: 1.5em;font-weight:bold;display:inline-block">Fly over the real estate landscape of Sweden</span>
         <br />
         <br />
         <br />
@@ -25,8 +24,10 @@
         <strong>R:</strong> Move Up<br />
         <strong>F:</strong> Move Down<br />
         <br />
-        <strong>Mouse:</strong> Look around
-
+        <strong>Mouse:</strong> Look around<br />
+        <br />
+        <br />
+        <span style="font-size: 1.7em;font-weight:bold;display:inline-block;border:4px dashed #0a0;padding:10px;">Click to start</span><br />
     </div>
 </div>
 <div id="info">
@@ -49,8 +50,9 @@
 <script>
     var controlsEnabled = false;
     var element = document.body;
-    var blocker = document.getElementById('blocker');
-    var instructions = document.getElementById('instructions');
+    var $blocker = document.getElementById('blocker');
+    var $instructions = document.getElementById('instructions');
+    var $info = document.getElementById('info');
 
     var pointerlockchange = function ( event ) {
 
@@ -59,18 +61,18 @@
             controlsEnabled = true;
             controls.enabled = true;
 
-            blocker.style.display = 'none';
-
+            $blocker.style.display = 'none';
+            $info.style.display = 'block';
         } else {
 
             controls.enabled = false;
 
-            blocker.style.display = '-webkit-box';
-            blocker.style.display = '-moz-box';
-            blocker.style.display = 'box';
+            $blocker.style.display = '-webkit-box';
+            $blocker.style.display = '-moz-box';
+            $blocker.style.display = 'box';
 
-            instructions.style.display = '';
-
+            $instructions.style.display = '';
+            $info.style.display = '';
         }
 
     };
@@ -225,9 +227,9 @@
     scene.add(light);
 
     controls = new THREE.PointerLockControls( camera );
-    controls.getObject().position.x = -828.4325975876371;
-    controls.getObject().position.y = 200;
-    controls.getObject().position.z = 43.309861123394114;
+    controls.getObject().position.x = -600;
+    controls.getObject().position.y = 80;
+    controls.getObject().position.z = 100;
 
     scene.add( controls.getObject() );
 
