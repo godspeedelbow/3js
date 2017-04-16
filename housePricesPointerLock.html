@@ -46,6 +46,7 @@
 <script src="js/three.js"></script>
 <script src="js/PointerLockControls.js"></script>
 <script src="js/Stats.js"></script>
+<script src="data/averageHousePrice-1decimal.js"></script> <!-- 0 or 1 decimal  -->
 <script src="data/averageHousePrices.js"></script>
 <script>
     var controlsEnabled = false;
@@ -195,16 +196,17 @@
 
     var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000000);
 
-    var geometry = new THREE.PlaneGeometry(60, 60, 13, 13);
+
+    var geometry = new THREE.PlaneGeometry(600, 600, 132, 132); // change argument 3 and 4 to create a grid
     geometry.rotateX( - Math.PI / 2 );
 
     geometry.vertices.map((vertice, index) => {
-        console.log('***** index', index);
+        // console.log('***** index', index);
         if (!window.housePriceData[index]) return console.log('***** empty');;
         vertice.x = -window.housePriceData[index].y;
         vertice.y = window.housePriceData[index].z;
         vertice.z = window.housePriceData[index].x;
-        console.log('***** vertice', vertice);
+        // console.log('***** vertice', vertice);
     });
 
     THREE.ImageUtils.crossOrigin = '';
