@@ -3,7 +3,7 @@ Three.js
 
 Just playing around with Three.js.
 
-[Swedish house price visualisation](/housePrices.html)
+[Swedish house price visualisation](https://godspeedelbow.github.io/3js/housePricesPointerLock.html)
 
 Development
 --------------
